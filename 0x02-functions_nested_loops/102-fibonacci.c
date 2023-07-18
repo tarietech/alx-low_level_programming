@@ -1,22 +1,29 @@
 #include <unistd.h>
 
 /**
- * print_alphabet_x10 - Prints the alphabet in lowercase ten times
+ * print_fibonacci - Prints the first 50 Fibonacci numbers
  */
-void print_alphabet_x10(void)
+void print_fibonacci(void)
 {
-	char letter;
+	unsigned long fib[50];  // Use unsigned long to accommodate large Fibonacci numbers
 	int i;
 
-	for (i = 0; i < 10; i++)
+	fib[0] = 1;
+	fib[1] = 2;
+
+	for (i = 2; i < 50; i++)
 	{
-		for (letter = 'a'; letter <= 'z'; letter++)
-		{
-			write(1, &letter, 1);
-		}
+		fib[i] = fib[i - 1] + fib[i - 2];
 	}
 
-	write(1, "\n", 1);
+	for (i = 0; i < 49; i++)
+	{
+		write(1, fib[i] + '0', 1);   // Convert digit to character and write
+		write(1, ", ", 2);           // Write comma and space
+	}
+
+	write(1, fib[49] + '0', 1);      // Write last number without comma and space
+	write(1, "\n", 1);               // Write new line
 }
 
 /**
@@ -26,7 +33,8 @@ void print_alphabet_x10(void)
  */
 int main(void)
 {
-	print_alphabet_x10();
+	print_fibonacci();
 
 	return (0);
 }
+
